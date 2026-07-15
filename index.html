@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ВТОРОЕ ДЫХАНИЕ™ — бутик ношеных носков и трусиков (шутка)</title>
+<meta name="description" content="Пародийный интернет-бутик изделий с выдержкой. Ничего не продаётся — это шутка.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧦</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Golos+Text:wght@400;600;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   БУТИК «ВТОРОЕ ДЫХАНИЕ» — пародийный лендинг-распродажа
+   Стиль: базарный люкс — наклейки, жёсткие тени, кричащие ценники
+   ============================================================ */
+
+:root{
+  /* Палитра (OKLCH): голубая заливка + кислотный жёлтый + томатный CTA */
+  --bg:        oklch(0.80 0.10 205);   /* небесно-базарный фон */
+  --bg-deep:   oklch(0.32 0.08 235);   /* тёмно-синий для футера и финального блока */
+  --surface:   oklch(0.98 0.008 200);  /* белые карточки */
+  --ink:       oklch(0.17 0.04 235);   /* почти чёрный с синевой */
+  --muted:     oklch(0.40 0.03 235);   /* вторичный текст */
+  --red:       oklch(0.55 0.21 28);    /* томатный — кнопки и цены */
+  --red-hover: oklch(0.48 0.20 28);
+  --yellow:    oklch(0.88 0.17 95);    /* кислотно-жёлтый — ценники, стикеры */
+  --pink:      oklch(0.62 0.22 355);   /* фуксия — редкие бейджи */
+  --white:     oklch(1 0 0);
+
+  --font-display:'Unbounded', system-ui, sans-serif;
+  --font-body:'Golos Text', system-ui, sans-serif;
+  --font-hand:'Caveat', cursive;
+
+  /* Семантическая шкала слоёв */
+  --z-sticky:10; --z-toast:30; --z-modal:50;
+
+  --shadow-hard: 5px 5px 0 var(--ink);
+  --shadow-soft: 8px 8px 0 oklch(0.17 0.04 235 / .18);
+  --radius:18px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.55;
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--font-display);line-height:1.12;text-wrap:balance}
+p{text-wrap:pretty}
+img,svg{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+
+/* ---------- Бегущая строка ---------- */
+.marquee{
+  background:var(--ink);
+  color:var(--yellow);
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:.8rem;
+  padding:.55em 0;
+  overflow:hidden;
+  white-space:nowrap;
+  letter-spacing:.02em;
+}
+.marquee__track{display:inline-block;animation:marquee 28s linear infinite}
+.marquee__track span{margin:0 1.6em}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- Шапка ---------- */
+.header{
+  position:sticky;top:0;z-index:var(--z-sticky);
+  background:var(--bg);
+  border-bottom:3px solid var(--ink);
+  padding:.7rem clamp(1rem,4vw,2.5rem);
+  display:flex;align-items:center;gap:1rem;justify-content:space-between;
+}
+.logo{
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(1rem,2.5vw,1.35rem);
+  text-decoration:none;display:flex;align-items:center;gap:.5rem;
+}
+.logo em{font-style:normal;color:var(--red)}
+.nav{display:flex;gap:1.4rem;font-weight:600}
+.nav a{text-decoration:none}
+.nav a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px;text-decoration-color:var(--red)}
+.cart-btn{
+  position:relative;
+  background:var(--yellow);border:3px solid var(--ink);border-radius:999px;
+  padding:.45em 1.1em;font-weight:800;box-shadow:var(--shadow-hard);
+  transition:transform .15s ease-out, box-shadow .15s ease-out;
+}
+.cart-btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.cart-btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.cart-count{
+  position:absolute;top:-10px;right:-8px;
+  background:var(--red);color:var(--white);
+  border:2px solid var(--ink);border-radius:999px;
+  min-width:1.6em;padding:.05em .3em;text-align:center;
+  font-size:.75rem;font-weight:800;
+}
+
+/* ---------- Герой ---------- */
+.hero{
+  max-width:1150px;margin:0 auto;
+  padding:clamp(2.5rem,7vw,5rem) clamp(1rem,4vw,2.5rem) clamp(2rem,5vw,4rem);
+  display:grid;grid-template-columns:1.15fr .85fr;gap:2.5rem;align-items:center;
+}
+.hero__kicker{
+  display:inline-block;background:var(--pink);color:var(--white);
+  font-weight:800;padding:.35em .9em;border:3px solid var(--ink);border-radius:10px;
+  transform:rotate(-2deg);box-shadow:var(--shadow-hard);margin-bottom:1.2rem;
+}
+.hero h1{
+  font-size:clamp(2.2rem,6vw,4.6rem);
+  font-weight:900;letter-spacing:-.01em;
+  margin-bottom:1.1rem;
+}
+.hero h1 .mark{
+  background:var(--yellow);
+  padding:0 .12em;border-radius:.15em;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;
+}
+.hero__sub{font-size:clamp(1rem,1.6vw,1.25rem);max-width:34ch;font-weight:600;margin-bottom:1.8rem}
+.hero__sub s{color:var(--muted)}
+.hero__cta{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.btn{
+  display:inline-block;text-decoration:none;text-align:center;
+  font-family:var(--font-display);font-weight:700;
+  border:3px solid var(--ink);border-radius:14px;
+  padding:.85em 1.6em;
+  transition:transform .15s ease-out, box-shadow .15s ease-out;
+}
+.btn--red{background:var(--red);color:var(--white);box-shadow:var(--shadow-hard)}
+.btn--red:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink);background:var(--red-hover)}
+.btn--red:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.btn--ghost{background:var(--surface);box-shadow:var(--shadow-hard)}
+.btn--ghost:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink)}
+.hero__note{font-size:.8rem;color:var(--muted);margin-top:.9rem}
+
+/* Иллюстрация героя + звезда-ценник */
+.hero__art{position:relative;justify-self:center;width:min(100%,420px)}
+.hero__art > svg{width:100%;height:auto;filter:drop-shadow(10px 12px 0 oklch(0.17 0.04 235 / .2))}
+.starburst{
+  position:absolute;top:-8%;right:-4%;width:38%;
+  animation:wobble 4s ease-in-out infinite;
+}
+@keyframes wobble{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(7deg)}}
+
+/* ---------- Таймер ---------- */
+.timer{
+  max-width:1150px;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem) 3rem;
+}
+.timer__box{
+  background:var(--ink);color:var(--white);
+  border-radius:var(--radius);border:3px solid var(--ink);
+  padding:1.2rem clamp(1rem,3vw,2rem);
+  display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between;
+  box-shadow:var(--shadow-soft);
+}
+.timer__label{font-family:var(--font-display);font-weight:700;font-size:clamp(.95rem,2vw,1.2rem)}
+.timer__label small{display:block;font-family:var(--font-body);font-weight:400;font-size:.75rem;color:oklch(0.75 0.05 205);margin-top:.2em}
+.timer__digits{
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(1.8rem,4.5vw,2.8rem);
+  color:var(--yellow);font-variant-numeric:tabular-nums;letter-spacing:.05em;
+}
+
+/* ---------- Стикеры доверия ---------- */
+.trust{
+  max-width:1150px;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem) 3.5rem;
+  display:flex;flex-wrap:wrap;gap:.9rem 1.1rem;justify-content:center;
+}
+.trust span{
+  background:var(--surface);border:3px solid var(--ink);border-radius:999px;
+  padding:.5em 1.2em;font-weight:700;font-size:.92rem;
+  box-shadow:4px 4px 0 var(--ink);
+}
+.trust span:nth-child(odd){transform:rotate(-1.5deg)}
+.trust span:nth-child(even){transform:rotate(1.6deg);background:var(--yellow)}
+
+/* ---------- Каталог ---------- */
+.catalog{max-width:1150px;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem) 4rem}
+.section-title{
+  font-size:clamp(1.7rem,4.5vw,3rem);font-weight:900;
+  margin-bottom:.4em;
+}
+.section-title s{text-decoration-thickness:.08em;text-decoration-color:var(--red)}
+.section-lead{font-size:1.05rem;font-weight:600;max-width:52ch;margin-bottom:2.2rem}
+.grid{
+  display:grid;gap:1.6rem;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
+.card{
+  position:relative;
+  background:var(--surface);
+  border:3px solid var(--ink);border-radius:var(--radius);
+  padding:1.4rem 1.4rem 1.6rem;
+  box-shadow:var(--shadow-soft);
+  display:flex;flex-direction:column;gap:.7rem;
+  transition:transform .18s ease-out, box-shadow .18s ease-out;
+}
+.card:hover{transform:translateY(-6px) rotate(-.4deg);box-shadow:12px 14px 0 oklch(0.17 0.04 235 / .22)}
+.card__badge{
+  position:absolute;top:-14px;right:14px;
+  font-family:var(--font-display);font-weight:700;font-size:.72rem;
+  border:3px solid var(--ink);border-radius:8px;padding:.3em .7em;
+  transform:rotate(3deg);box-shadow:3px 3px 0 var(--ink);
+}
+.badge--hit{background:var(--red);color:var(--white)}
+.badge--last{background:var(--yellow)}
+.badge--lux{background:var(--ink);color:var(--yellow)}
+.badge--rare{background:var(--pink);color:var(--white)}
+.badge--new{background:var(--surface)}
+.card__art{
+  background:oklch(0.93 0.045 205);
+  border:3px solid var(--ink);border-radius:14px;
+  padding:.8rem;display:grid;place-items:center;
+}
+.card__art svg{width:min(100%,190px);height:auto}
+.card h3{font-size:1.15rem;font-weight:700}
+.card__desc{font-size:.92rem;color:var(--muted);flex-grow:1}
+.aroma{display:flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:700}
+.aroma svg{width:18px;height:18px;flex:none}
+.aroma .off{opacity:.22}
+.price-row{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+.price-old{color:var(--muted);text-decoration:line-through;font-weight:600}
+.price-new{font-family:var(--font-display);font-weight:900;font-size:1.5rem;color:var(--red)}
+.price-note{font-size:.72rem;color:var(--muted);width:100%}
+.card .btn{width:100%;padding:.7em 1em;font-size:.95rem}
+@media (min-width:720px){.card--wide{grid-column:span 2}}
+
+/* ---------- Отзывы ---------- */
+.reviews{max-width:1150px;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem) 4.5rem}
+.reviews__grid{display:grid;gap:1.8rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:2rem}
+.review{
+  position:relative;
+  background:var(--surface);border:3px solid var(--ink);border-radius:6px;
+  padding:2.2rem 1.5rem 1.4rem;
+  font-family:var(--font-hand);font-size:1.45rem;line-height:1.3;
+  box-shadow:var(--shadow-soft);
+}
+.review:nth-child(1){transform:rotate(-1.6deg)}
+.review:nth-child(2){transform:rotate(1.2deg)}
+.review:nth-child(3){transform:rotate(-.8deg)}
+.review::before{ /* полоска «скотча» сверху */
+  content:"";position:absolute;top:-14px;left:50%;translate:-50% 0;
+  width:110px;height:26px;background:oklch(0.88 0.17 95 / .85);
+  border:2px solid oklch(0.17 0.04 235 / .5);transform:rotate(-2deg);
+}
+.review__stars{color:var(--red);font-family:var(--font-body);font-size:1rem;letter-spacing:.15em;margin-bottom:.4rem}
+.review__author{display:block;margin-top:.8rem;font-family:var(--font-body);font-size:.85rem;font-weight:700;color:var(--muted)}
+
+/* ---------- Вопросы ---------- */
+.faq{max-width:820px;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem) 4.5rem}
+.faq details{
+  background:var(--surface);border:3px solid var(--ink);border-radius:14px;
+  margin-top:1rem;box-shadow:4px 4px 0 var(--ink);
+  overflow:hidden;
+}
+.faq summary{
+  list-style:none;cursor:pointer;
+  font-family:var(--font-display);font-weight:700;font-size:1rem;
+  padding:1.1rem 1.3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.5em;font-weight:500;color:var(--red);flex:none}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 1.3rem 1.2rem;color:var(--muted);font-weight:600}
+
+/* ---------- Финальный призыв ---------- */
+.final{
+  background:var(--bg-deep);color:var(--white);
+  border-top:4px solid var(--ink);
+  padding:clamp(3rem,8vw,5.5rem) clamp(1rem,4vw,2.5rem);
+  text-align:center;
+}
+.final h2{font-size:clamp(1.9rem,5.5vw,3.6rem);font-weight:900;color:var(--yellow);margin-bottom:.5em}
+.final p{max-width:46ch;margin:0 auto 2rem;font-weight:600;color:oklch(0.85 0.04 205)}
+.final .btn--red{font-size:1.1rem}
+
+/* ---------- Футер ---------- */
+.footer{
+  background:var(--ink);color:oklch(0.72 0.04 205);
+  padding:2.5rem clamp(1rem,4vw,2.5rem);
+  font-size:.85rem;text-align:center;
+}
+.footer strong{color:var(--yellow);display:block;font-size:1rem;margin-bottom:.6em}
+.footer p{max-width:64ch;margin:0 auto .5em}
+
+/* ---------- Тосты ---------- */
+.toasts{
+  position:fixed;left:1rem;bottom:1rem;z-index:var(--z-toast);
+  display:flex;flex-direction:column;gap:.6rem;max-width:min(340px,calc(100vw - 2rem));
+}
+.toast{
+  background:var(--surface);border:3px solid var(--ink);border-radius:12px;
+  padding:.75rem 1rem;font-size:.88rem;font-weight:600;
+  box-shadow:5px 5px 0 var(--ink);
+  display:flex;gap:.6rem;align-items:flex-start;
+  animation:toast-in .35s cubic-bezier(.16,1,.3,1);
+}
+.toast--buy{background:var(--yellow)}
+@keyframes toast-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.toast.hide{opacity:0;transition:opacity .3s ease-out}
+
+/* ---------- Модалка корзины ---------- */
+dialog.cart{
+  border:4px solid var(--ink);border-radius:var(--radius);
+  padding:2rem;max-width:26rem;width:calc(100vw - 2.5rem);
+  box-shadow:10px 10px 0 var(--ink);
+  z-index:var(--z-modal);
+}
+dialog.cart::backdrop{background:oklch(0.17 0.04 235 / .55)}
+dialog.cart h3{font-size:1.3rem;margin-bottom:.6rem}
+dialog.cart p{margin-bottom:.6rem;font-weight:600}
+dialog.cart .total{font-family:var(--font-display);font-weight:900;font-size:1.6rem;color:var(--red);margin:.5rem 0 1.2rem}
+dialog.cart .btn{width:100%}
+
+/* ---------- Появление героя ---------- */
+.hero__text > *{animation:rise .7s cubic-bezier(.16,1,.3,1) both}
+.hero__text > *:nth-child(2){animation-delay:.08s}
+.hero__text > *:nth-child(3){animation-delay:.16s}
+.hero__text > *:nth-child(4){animation-delay:.24s}
+.hero__text > *:nth-child(5){animation-delay:.32s}
+.hero__art{animation:rise .8s .25s cubic-bezier(.16,1,.3,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+/* ---------- Мобильная раскладка ---------- */
+@media (max-width:820px){
+  .nav{display:none}
+  .hero{grid-template-columns:1fr;text-align:left;gap:1.5rem}
+  .hero__art{width:min(75%,340px)}
+}
+
+/* ---------- Отключение анимаций ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .marquee__track{transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Бегущая строка: базарные обещания -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track" id="marqueeTrack">
+    <span>🔥 СКИДКА −146% (МАТЕМАТИКА — ДЛЯ СЛАБАКОВ)</span>
+    <span>🧦 НЮХ-ГАРАНТИЯ 30 ДНЕЙ</span>
+    <span>📦 ТРОЙНАЯ ВАКУУМНАЯ УПАКОВКА — СОСЕДИ НЕ УЗНАЮТ</span>
+    <span>⏰ ОСТАЛОСЬ 2 ШТ (ВСЕГДА)</span>
+    <span>🖤 ЧЁРНАЯ ПЯТНИЦА (СЕГОДНЯ СРЕДА, НО НЕВАЖНО)</span>
+    <span>🏆 ВЫБОР МИЛЛИОНОВ (ДВОИХ)</span>
+  </div>
+</div>
+
+<!-- Шапка -->
+<header class="header">
+  <a class="logo" href="#">🧦 ВТОРОЕ&nbsp;<em>ДЫХАНИЕ</em>™</a>
+  <nav class="nav" aria-label="Основная навигация">
+    <a href="#catalog">Каталог</a>
+    <a href="#reviews">Отзывы</a>
+    <a href="#faq">Вопросы</a>
+  </nav>
+  <button class="cart-btn" id="cartBtn">🛒 Корзина<span class="cart-count" id="cartCount">0</span></button>
+</header>
+
+<!-- Герой -->
+<section class="hero">
+  <div class="hero__text">
+    <span class="hero__kicker">Первый в мире бутик изделий с выдержкой</span>
+    <h1>ПАХНЕТ <span class="mark">УСПЕХОМ</span>.<br>И НЕ ТОЛЬКО.</h1>
+    <p class="hero__sub">Ношеные носки и трусики <s>сомнительного</s> благородного происхождения. Как коллекционное вино — только хуже и дешевле.</p>
+    <div class="hero__cta">
+      <a class="btn btn--red" href="#catalog">ЗАБРАТЬ ПАРУ →</a>
+      <a class="btn btn--ghost" href="#faq">Это вообще законно?</a>
+    </div>
+    <p class="hero__note">* Сайт — шутка. Ничего не продаётся, не нюхается и не доставляется.</p>
+  </div>
+
+  <div class="hero__art">
+    <!-- Главный носок-чемпион с паром аромата -->
+    <svg viewBox="0 0 400 400" role="img" aria-label="Гордый ношеный носок с медалью и паром аромата">
+      <circle cx="200" cy="210" r="165" fill="oklch(0.93 0.045 205)" stroke="oklch(0.17 0.04 235)" stroke-width="6"/>
+      <!-- пар аромата -->
+      <g stroke="oklch(0.17 0.04 235)" stroke-width="7" stroke-linecap="round" fill="none" opacity=".55">
+        <path d="M150 95 q-12 -20 0 -38 q12 -18 0 -36"/>
+        <path d="M200 85 q-12 -20 0 -38 q12 -18 0 -36"/>
+        <path d="M250 95 q-12 -20 0 -38 q12 -18 0 -36"/>
+      </g>
+      <!-- носок -->
+      <path d="M150 120 h100 v120 q0 20 18 30 l40 24 q30 18 12 48 q-18 28 -52 12 l-80 -44 q-38 -20 -38 -62 z"
+            fill="oklch(0.97 0.01 200)" stroke="oklch(0.17 0.04 235)" stroke-width="8" stroke-linejoin="round"/>
+      <!-- резинка -->
+      <rect x="142" y="108" width="116" height="34" rx="10" fill="oklch(0.62 0.22 355)" stroke="oklch(0.17 0.04 235)" stroke-width="8"/>
+      <!-- полоски -->
+      <path d="M150 165 h100 M150 190 h100" stroke="oklch(0.55 0.21 28)" stroke-width="12"/>
+      <!-- пятка -->
+      <path d="M250 240 q0 14 12 22 l30 18 q16 10 8 26 q-8 14 -28 6" fill="none" stroke="oklch(0.62 0.22 355)" stroke-width="12" stroke-linecap="round"/>
+      <!-- медаль -->
+      <g>
+        <path d="M188 240 l-16 44 M212 240 l16 44" stroke="oklch(0.55 0.21 28)" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="200" cy="300" r="34" fill="oklch(0.88 0.17 95)" stroke="oklch(0.17 0.04 235)" stroke-width="7"/>
+        <text x="200" y="312" text-anchor="middle" font-family="Unbounded, sans-serif" font-weight="900" font-size="30" fill="oklch(0.17 0.04 235)">1</text>
+      </g>
+      <!-- блёстки -->
+      <g fill="oklch(0.88 0.17 95)" stroke="oklch(0.17 0.04 235)" stroke-width="4">
+        <path d="M95 160 l7 16 16 7 -16 7 -7 16 -7 -16 -16 -7 16 -7 z"/>
+        <path d="M310 140 l6 13 13 6 -13 6 -6 13 -6 -13 -13 -6 13 -6 z"/>
+      </g>
+    </svg>
+    <!-- звезда-ценник -->
+    <svg class="starburst" viewBox="0 0 160 160" role="img" aria-label="Скидка минус 146 процентов">
+      <path d="M80 4 L94 32 L124 18 L122 50 L154 52 L134 76 L158 96 L128 106 L138 136 L106 130 L98 158 L80 134 L62 158 L54 130 L22 136 L32 106 L2 96 L26 76 L6 52 L38 50 L36 18 L66 32 Z"
+            fill="oklch(0.88 0.17 95)" stroke="oklch(0.17 0.04 235)" stroke-width="5" stroke-linejoin="round"/>
+      <text x="80" y="74" text-anchor="middle" font-family="Unbounded, sans-serif" font-weight="900" font-size="30" fill="oklch(0.55 0.21 28)">−146%</text>
+      <text x="80" y="100" text-anchor="middle" font-family="Golos Text, sans-serif" font-weight="700" font-size="14" fill="oklch(0.17 0.04 235)">честно-нечестно</text>
+    </svg>
+  </div>
+</section>
+
+<!-- Таймер распродажи -->
+<section class="timer">
+  <div class="timer__box">
+    <div class="timer__label">
+      ⏰ До конца распродажи осталось:
+      <small id="timerNote">Таймер абсолютно честный. Мамой клянёмся.</small>
+    </div>
+    <div class="timer__digits" id="timerDigits">14:37</div>
+  </div>
+</section>
+
+<!-- Стикеры доверия -->
+<div class="trust" aria-label="Наши преимущества">
+  <span>🔒 Анонимнее некуда</span>
+  <span>🧪 Сертификат аромата в комплекте</span>
+  <span>📦 Доставка в тройном вакууме</span>
+  <span>♻️ Эко-товар: вторичное использование</span>
+  <span>👃 Проверено сомелье-нюхачом Геннадием</span>
+</div>
+
+<!-- Каталог -->
+<main class="catalog" id="catalog">
+  <h2 class="section-title">Каталог <s>свежих</s> ВЫДЕРЖАННЫХ поступлений</h2>
+  <p class="section-lead">Каждое изделие зреет в естественных условиях и проходит строгий контроль качества носом Геннадия. Крепость аромата указана честно.</p>
+
+  <div class="grid">
+
+    <!-- Товар 1: Марафонец -->
+    <article class="card">
+      <span class="card__badge badge--hit">🔥 ХИТ</span>
+      <div class="card__art">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Спортивные носки Марафонец">
+          <g stroke="oklch(0.17 0.04 235)" stroke-width="4" stroke-linecap="round" fill="none" opacity=".5">
+            <path d="M70 42 q-7 -11 0 -21"/><path d="M100 36 q-7 -11 0 -21"/>
+          </g>
+          <path d="M62 55 h56 v62 q0 12 10 18 l22 13 q17 10 7 26 q-10 15 -29 6 l-44 -24 q-22 -11 -22 -35 z"
+                fill="oklch(0.97 0.01 200)" stroke="oklch(0.17 0.04 235)" stroke-width="6" stroke-linejoin="round"/>
+          <rect x="57" y="48" width="66" height="20" rx="7" fill="oklch(0.55 0.21 28)" stroke="oklch(0.17 0.04 235)" stroke-width="6"/>
+          <path d="M62 85 h56 M62 100 h56" stroke="oklch(0.55 0.21 28)" stroke-width="7"/>
+          <circle cx="150" cy="160" r="20" fill="oklch(0.88 0.17 95)" stroke="oklch(0.17 0.04 235)" stroke-width="5"/>
+          <text x="150" y="168" text-anchor="middle" font-family="Unbounded, sans-serif" font-weight="900" font-size="20" fill="oklch(0.17 0.04 235)">1</text>
+        </svg>
+      </div>
+      <h3>Носки «Марафонец»</h3>
+      <p class="card__desc">Выдержка: 42 км и один финишный спурт. Букет: раздевалка чемпиона, нотки триумфа и резины.</p>
+      <div class="aroma" data-level="4" aria-label="Крепость аромата 4 из 5"></div>
+      <div class="price-row">
+        <span class="price-old">9 999 ₽</span>
+        <span class="price-new">499 ₽</span>
+        <span class="price-note">за пару. Обе штуки. Щедро.</span>
+      </div>
+      <button class="btn btn--red add-btn" data-name="Носки «Марафонец»">В корзину</button>
+    </article>
+
+    <!-- Товар 2: Программист -->
+    <article class="card">
+      <span class="card__badge badge--last">⏳ ОСТАЛОСЬ 2 ШТ</span>
+      <div class="card__art">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Тёмный носок программиста с бинарным узором">
+          <g stroke="oklch(0.17 0.04 235)" stroke-width="4" stroke-linecap="round" fill="none" opacity=".5">
+            <path d="M85 40 q-7 -11 0 -21"/><path d="M112 34 q-7 -11 0 -21"/>
+          </g>
+          <path d="M72 52 h56 v66 q0 12 10 18 l22 13 q17 10 7 26 q-10 15 -29 6 l-44 -24 q-22 -11 -22 -35 z"
+                fill="oklch(0.35 0.06 250)" stroke="oklch(0.17 0.04 235)" stroke-width="6" stroke-linejoin="round"/>
+          <rect x="67" y="45" width="66" height="20" rx="7" fill="oklch(0.62 0.19 145)" stroke="oklch(0.17 0.04 235)" stroke-width="6"/>
+          <text x="82" y="92" font-family="monospace" font-weight="700" font-size="16" fill="oklch(0.80 0.18 145)">101</text>
+          <text x="86" y="112" font-family="monospace" font-weight="700" font-size="16" fill="oklch(0.80 0.18 145)">010</text>
+          <text x="118" y="150" font-family="monospace" font-weight="700" font-size="14" fill="oklch(0.80 0.18 145)" transform="rotate(28 118 150)">110</text>
+        </svg>
+      </div>
+      <h3>Носки «Программист»</h3>
+      <p class="card__desc">Выдержка: 3 недели непрерывного дедлайна. Букет: энергетик, лапша быстрого приготовления, лёгкое выгорание.</p>
+      <div class="aroma" data-level="5" aria-label="Крепость аромата 5 из 5"></div>
+      <div class="price-row">
+        <span class="price-old">15 000 ₽</span>
+        <span class="price-new">1 099 ₽</span>
+        <span class="price-note">кризис в IT — цены вниз.</span>
+      </div>
+      <button class="btn btn--red add-btn" data-name="Носки «Программист»">В корзину</button>
+    </article>
+
+    <!-- Товар 3: Понедельник -->
+    <article class="card">
+      <span class="card__badge badge--new">✨ НОВИНКА</span>
+      <div class="card__art">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Трусики в горошек Понедельник">
+          <path d="M40 65 h120 q6 0 6 8 l-4 22 q-2 14 -16 22 l-30 18 q-6 4 -6 12 v6 h-20 v-6 q0 -8 -6 -12 l-30 -18 q-14 -8 -16 -22 l-4 -22 q0 -8 6 -8 z"
+                fill="oklch(0.90 0.06 205)" stroke="oklch(0.17 0.04 235)" stroke-width="6" stroke-linejoin="round"/>
+          <rect x="36" y="58" width="128" height="18" rx="7" fill="oklch(0.97 0.01 200)" stroke="oklch(0.17 0.04 235)" stroke-width="6"/>
+          <g fill="oklch(0.32 0.08 235)">
+            <circle cx="70" cy="98" r="6"/><circle cx="102" cy="92" r="6"/><circle cx="132" cy="100" r="6"/>
+            <circle cx="86" cy="120" r="6"/><circle cx="116" cy="122" r="6"/><circle cx="100" cy="145" r="6"/>
+          </g>
+          <path d="M92 62 q8 -12 16 0 q-8 8 -16 0" fill="oklch(0.62 0.22 355)" stroke="oklch(0.17 0.04 235)" stroke-width="4"/>
+        </svg>
+      </div>
+      <h3>Трусики «Понедельник»</h3>
+      <p class="card__desc">Классика в горошек. Букет: лёгкая усталость от жизни, кофе, «давайте перенесём на вторник».</p>
+      <div class="aroma" data-level="2" aria-label="Крепость аромата 2 из 5"></div>
+      <div class="price-row">
+        <span class="price-old">4 500 ₽</span>
+        <span class="price-new">799 ₽</span>
+        <span class="price-note">по понедельникам дороже. Из принципа.</span>
+      </div>
+      <button class="btn btn--red add-btn" data-name="Трусики «Понедельник»">В корзину</button>
+    </article>
+
+    <!-- Товар 4: Люкс Париж -->
+    <article class="card">
+      <span class="card__badge badge--lux">👑 ЛЮКС</span>
+      <div class="card__art">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Кружевные трусики Люкс Париж с блёстками">
+          <path d="M40 70 h120 q6 0 6 8 l-4 20 q-2 14 -16 22 l-30 18 q-6 4 -6 12 v6 h-20 v-6 q0 -8 -6 -12 l-30 -18 q-14 -8 -16 -22 l-4 -20 q0 -8 6 -8 z"
+                fill="oklch(0.62 0.22 355)" stroke="oklch(0.17 0.04 235)" stroke-width="6" stroke-linejoin="round"/>
+          <rect x="36" y="63" width="128" height="18" rx="7" fill="oklch(0.88 0.17 95)" stroke="oklch(0.17 0.04 235)" stroke-width="6"/>
+          <!-- кружевной край -->
+          <path d="M64 138 q5 8 10 0 q5 8 10 0 q5 8 10 0 q5 8 10 0 q5 8 10 0 q5 8 10 0" fill="none" stroke="oklch(0.97 0.01 200)" stroke-width="4" stroke-linecap="round" transform="translate(-7 -12)"/>
+          <g fill="oklch(0.88 0.17 95)" stroke="oklch(0.17 0.04 235)" stroke-width="3">
+            <path d="M45 40 l5 11 11 5 -11 5 -5 11 -5 -11 -11 -5 11 -5 z"/>
+            <path d="M158 44 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4 z"/>
+            <path d="M148 150 l4 9 9 4 -9 4 -4 9 -4 -9 -9 -4 9 -4 z"/>
+          </g>
+        </svg>
+      </div>
+      <h3>Трусики «Люкс Париж»</h3>
+      <p class="card__desc">Кружево ручной носки. Букет: духи из подземного перехода, круассан, лёгкий флёр загадочности.</p>
+      <div class="aroma" data-level="3" aria-label="Крепость аромата 3 из 5"></div>
+      <div class="price-row">
+        <span class="price-old">99 000 ₽</span>
+        <span class="price-new">2 999 ₽</span>
+        <span class="price-note">это же ЛЮКС. Скажите спасибо.</span>
+      </div>
+      <button class="btn btn--red add-btn" data-name="Трусики «Люкс Париж»">В корзину</button>
+    </article>
+
+    <!-- Товар 5: Одинокий -->
+    <article class="card">
+      <span class="card__badge badge--rare">💎 РЕДКОСТЬ</span>
+      <div class="card__art">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Одинокий носок с заплаткой в виде сердечка">
+          <path d="M75 45 h50 v70 q0 12 10 18 l18 11 q16 10 6 25 q-10 14 -27 5 l-38 -21 q-19 -10 -19 -32 z"
+                fill="oklch(0.90 0.08 85)" stroke="oklch(0.17 0.04 235)" stroke-width="6" stroke-linejoin="round"/>
+          <rect x="70" y="38" width="60" height="18" rx="7" fill="oklch(0.97 0.01 200)" stroke="oklch(0.17 0.04 235)" stroke-width="6"/>
+          <!-- заплатка-сердечко -->
+          <path d="M100 105 q-10 -12 -20 -2 q-8 8 2 18 l18 14 l18 -14 q10 -10 2 -18 q-10 -10 -20 2 z"
+                fill="oklch(0.62 0.22 355)" stroke="oklch(0.17 0.04 235)" stroke-width="4" stroke-dasharray="6 4"/>
+          <!-- слеза -->
+          <path d="M62 92 q-8 12 0 18 q8 -6 0 -18 z" fill="oklch(0.70 0.12 230)" stroke="oklch(0.17 0.04 235)" stroke-width="3"/>
+        </svg>
+      </div>
+      <h3>Носок «Одинокий»</h3>
+      <p class="card__desc">Пара утеряна при стирке в 2019 году. Ищет вторую половинку. Букет: грусть, кондиционер для белья, надежда.</p>
+      <div class="aroma" data-level="1" aria-label="Крепость аромата 1 из 5"></div>
+      <div class="price-row">
+        <span class="price-old">999 ₽</span>
+        <span class="price-new">499 ₽</span>
+        <span class="price-note">скидка 50% — он же один.</span>
+      </div>
+      <button class="btn btn--red add-btn" data-name="Носок «Одинокий»">В корзину</button>
+    </article>
+
+    <!-- Товар 6: Семейный склад (широкая карточка) -->
+    <article class="card card--wide">
+      <span class="card__badge badge--hit">📦 ОПТ</span>
+      <div class="card__art">
+        <svg viewBox="0 0 340 200" role="img" aria-label="Мешок с пятью килограммами носков-ассорти">
+          <path d="M120 70 q-40 20 -44 70 q-2 34 34 42 q60 12 120 0 q36 -8 34 -42 q-4 -50 -44 -70 z"
+                fill="oklch(0.75 0.09 75)" stroke="oklch(0.17 0.04 235)" stroke-width="7" stroke-linejoin="round"/>
+          <path d="M118 68 q52 -16 104 0 l-8 -22 q-44 -12 -88 0 z" fill="oklch(0.65 0.09 75)" stroke="oklch(0.17 0.04 235)" stroke-width="7" stroke-linejoin="round"/>
+          <!-- торчащие носки -->
+          <path d="M135 48 v-22 q0 -10 10 -10 h6 q10 0 10 10 v22" fill="oklch(0.55 0.21 28)" stroke="oklch(0.17 0.04 235)" stroke-width="6"/>
+          <path d="M175 44 v-26 q0 -10 10 -10 h6 q10 0 10 10 v26" fill="oklch(0.62 0.22 355)" stroke="oklch(0.17 0.04 235)" stroke-width="6"/>
+          <!-- верёвка -->
+          <ellipse cx="170" cy="62" rx="56" ry="12" fill="none" stroke="oklch(0.17 0.04 235)" stroke-width="7"/>
+          <!-- бирка -->
+          <g transform="rotate(8 252 120)">
+            <rect x="222" y="96" width="62" height="40" rx="8" fill="oklch(0.88 0.17 95)" stroke="oklch(0.17 0.04 235)" stroke-width="5"/>
+            <text x="253" y="122" text-anchor="middle" font-family="Unbounded, sans-serif" font-weight="900" font-size="18" fill="oklch(0.17 0.04 235)">5 КГ</text>
+          </g>
+          <g stroke="oklch(0.17 0.04 235)" stroke-width="4" stroke-linecap="round" fill="none" opacity=".5">
+            <path d="M150 20 q-6 -10 0 -18"/><path d="M196 16 q-6 -10 0 -18"/>
+          </g>
+        </svg>
+      </div>
+      <h3>Комплект «Семейный склад» — 5 кг ассорти</h3>
+      <p class="card__desc">Кот в мешке, только носки. Состав сюрприз: от «дачных» до «свадебных». Идеально для тех, кто уже ничего не боится.</p>
+      <div class="aroma" data-level="5" aria-label="Крепость аромата 5 из 5"></div>
+      <div class="price-row">
+        <span class="price-old">30 000 ₽</span>
+        <span class="price-new">4 999 ₽</span>
+        <span class="price-note">цена за килограмм ниже, чем у картошки. Почти.</span>
+      </div>
+      <button class="btn btn--red add-btn" data-name="Комплект «Семейный склад»">В корзину</button>
+    </article>
+
+  </div>
+</main>
+
+<!-- Отзывы -->
+<section class="reviews" id="reviews">
+  <h2 class="section-title">Отзывы настоящих* людей</h2>
+  <p class="section-lead">* Настоящесть людей не проверялась и не гарантируется.</p>
+  <div class="reviews__grid">
+    <figure class="review">
+      <div class="review__stars" aria-label="5 звёзд из 5">★★★★★</div>
+      <blockquote>Заказал носки «Марафонец». Зашёл в лифт — сосед заплакал. От восхищения, наверное. Беру ещё!</blockquote>
+      <figcaption class="review__author">Валерий, Саратов</figcaption>
+    </figure>
+    <figure class="review">
+      <div class="review__stars" aria-label="5 звёзд из 5">★★★★★</div>
+      <blockquote>Трусики «Понедельник» пахнут ровно так, как я себя чувствую. Совпадение — 100%. Спасибо, что понимаете.</blockquote>
+      <figcaption class="review__author">Аноним, Москва</figcaption>
+    </figure>
+    <figure class="review">
+      <div class="review__stars" aria-label="5 звёзд из 5">★★★★★</div>
+      <blockquote>Подарила мужу комплект «Семейный склад». Муж перестал храпеть. Просто перестал спать. Эффект есть!</blockquote>
+      <figcaption class="review__author">Людмила П., Челябинск</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- Вопросы -->
+<section class="faq" id="faq">
+  <h2 class="section-title">Отвечаем на неудобные вопросы</h2>
+  <details>
+    <summary>Это вообще законно?</summary>
+    <p>Это шутка, поэтому — абсолютно. Ни один носок не был продан, понюхан или отправлен почтой. Юристы выдыхают.</p>
+  </details>
+  <details>
+    <summary>Можно оформить возврат?</summary>
+    <p>Можно. Но давайте честно: обратно мы это не примем. И курьер не примет. И почта. Никто не примет.</p>
+  </details>
+  <details>
+    <summary>Как вы определяете «крепость аромата»?</summary>
+    <p>Наш штатный сомелье-нюхач Геннадий. 20 лет стажа, ни одного выходного и медаль «За отвагу». Его слово — закон.</p>
+  </details>
+  <details>
+    <summary>Почему скидка −146%? Так же не бывает.</summary>
+    <p>В обычных магазинах — не бывает. А у нас маркетологи работают без калькулятора, сердцем. Сердце говорит: −146%.</p>
+  </details>
+  <details>
+    <summary>Так это всё-таки шутка?</summary>
+    <p>Да. Полностью. Это пародия на агрессивные интернет-магазины: здесь ничего не продаётся. Идите обнимите близких и постирайте носки.</p>
+  </details>
+</section>
+
+<!-- Финальный призыв -->
+<section class="final">
+  <h2>УСПЕЙ, ПОКА НЕ ПОСТИРАЛИ!</h2>
+  <p>Каждую минуту чья-то мама подбирается к стиральной машине. Ассортимент тает на глазах — спасай выдержанные экземпляры прямо сейчас.</p>
+  <a class="btn btn--red" href="#catalog">ХОЧУ ПАРУ →</a>
+</section>
+
+<!-- Футер -->
+<footer class="footer">
+  <strong>⚠️ Дисклеймер (самая честная часть сайта)</strong>
+  <p>Этот сайт — шутка и пародия на агрессивный интернет-маркетинг. Ничего не продаётся, не покупается, не нюхается и не доставляется. Все товары, отзывы, скидки и Геннадий — вымышлены.</p>
+  <p>© 2026 Бутик «Второе дыхание». Сделано с любовью и кондиционером для белья. При создании сайта ни один носок не пострадал.</p>
+</footer>
+
+<!-- Контейнер тостов -->
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<!-- Модалка корзины -->
+<dialog class="cart" id="cartDialog">
+  <h3>🛒 Ваша корзина</h3>
+  <p id="cartSummary">Пока пусто. Морально — тоже.</p>
+  <p>К оплате: <span class="total">0 ₽</span></p>
+  <p style="font-size:.85rem;color:var(--muted)">Оплата принимается воображением, доставка — телепатией. Мы же пошутили.</p>
+  <button class="btn btn--red" id="cartClose">Понял, ухожу довольный</button>
+</dialog>
+
+<script>
+// ===== Пародийная логика магазина: таймер, тосты, «корзина» =====
+
+// --- Шкала аромата: рисуем 5 волн, активных — по data-level ---
+document.querySelectorAll('.aroma').forEach(el => {
+  const level = +el.dataset.level;
+  let html = '<span>Крепость:</span>';
+  for (let i = 1; i <= 5; i++) {
+    html += `<svg viewBox="0 0 24 24" class="${i <= level ? '' : 'off'}" aria-hidden="true">
+      <g stroke="oklch(0.55 0.21 28)" stroke-width="3.4" stroke-linecap="round" fill="none">
+        <path d="M6 20 q-4 -6 0 -12 q4 -6 0 -6"/>
+        <path d="M13 21 q-4 -7 0 -14 q4 -7 0 -7"/>
+        <path d="M20 20 q-4 -6 0 -12 q4 -6 0 -6"/>
+      </g></svg>`;
+  }
+  html += `<span>${level}/5</span>`;
+  el.innerHTML = html;
+});
+
+// --- «Честный» таймер: дошёл до нуля — начал заново ---
+let seconds = 14 * 60 + 37;
+let restarts = 0;
+const digits = document.getElementById('timerDigits');
+const note = document.getElementById('timerNote');
+setInterval(() => {
+  seconds--;
+  if (seconds < 0) {
+    seconds = 15 * 60;
+    restarts++;
+    note.textContent = `Таймер перезапущен ${restarts} раз. Всё ещё абсолютно честный.`;
+  }
+  const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const s = String(seconds % 60).padStart(2, '0');
+  digits.textContent = `${m}:${s}`;
+}, 1000);
+
+// --- Тосты ---
+const toasts = document.getElementById('toasts');
+function showToast(text, cls = '') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + cls;
+  t.textContent = text;
+  toasts.append(t);
+  // держим максимум 3 тоста
+  while (toasts.children.length > 3) toasts.firstChild.remove();
+  setTimeout(() => { t.classList.add('hide'); setTimeout(() => t.remove(), 350); }, 5000);
+}
+
+// --- Фейковые уведомления о покупках ---
+const buyers = ['Валера из Саратова', 'Аноним из Москвы', 'Людмила из Челябинска',
+  'Геннадий (да, тот самый)', 'Кто-то из Одинцово', 'Ваш сосед (возможно)'];
+const goods = ['носки «Марафонец»', 'трусики «Люкс Париж»', 'носок «Одинокий»',
+  '5 кг ассорти', 'носки «Программист»', 'трусики «Понедельник»'];
+function fakeBuy() {
+  const b = buyers[Math.floor(Math.random() * buyers.length)];
+  const g = goods[Math.floor(Math.random() * goods.length)];
+  showToast(`🔔 ${b} только что «купил(а)» ${g}!`, 'toast--buy');
+}
+setTimeout(fakeBuy, 6000);
+setInterval(fakeBuy, 17000);
+
+// --- Корзина ---
+let cartTotal = 0;
+const cartCount = document.getElementById('cartCount');
+const phrases = [
+  'Спойлер: доставки не будет.',
+  'Отличный выбор! Сожалеем.',
+  'Геннадий одобряет ваш вкус.',
+  'Смелость города берёт.',
+  'Ваша посылка уже никуда не едет.'
+];
+document.querySelectorAll('.add-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    cartTotal++;
+    cartCount.textContent = cartTotal > 99 ? '99+' : cartTotal;
+    const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+    showToast(`✅ ${btn.dataset.name} — в корзине! ${phrase}`);
+  });
+});
+
+// --- Модалка корзины ---
+const dialog = document.getElementById('cartDialog');
+const summary = document.getElementById('cartSummary');
+document.getElementById('cartBtn').addEventListener('click', () => {
+  summary.textContent = cartTotal === 0
+    ? 'Пока пусто. Морально — тоже.'
+    : `Товаров: ${cartTotal} шт. Все они останутся здесь навсегда.`;
+  dialog.showModal();
+});
+document.getElementById('cartClose').addEventListener('click', () => dialog.close());
+
+// --- Бегущая строка: дублируем содержимое для бесшовного цикла ---
+const track = document.getElementById('marqueeTrack');
+track.innerHTML += track.innerHTML;
+</script>
+</body>
+</html>
