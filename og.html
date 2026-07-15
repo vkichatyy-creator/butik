@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>OG-карточка 1200×630 (исходник для og.png)</title>
+<!-- Служебная страница: из неё headless-браузером рендерится og.png для превью в мессенджерах.
+     Команда рендера — в README нет смысла держать, вот она:
+     chrome --headless=new --disable-gpu --hide-scrollbars --window-size=1200,630
+            --screenshot=og.png --virtual-time-budget=8000 file:///.../og.html -->
+<style>
+@font-face{font-family:'Unbounded';font-weight:700 900;src:url('fonts/Unbounded-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Unbounded';font-weight:700 900;src:url('fonts/Unbounded-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+2000-206F, U+2122}
+@font-face{font-family:'Unbounded';font-weight:700 900;src:url('fonts/Unbounded-ruble.woff2') format('woff2');unicode-range:U+20BD}
+@font-face{font-family:'Golos Text';font-weight:400 800;src:url('fonts/GolosText-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Golos Text';font-weight:400 800;src:url('fonts/GolosText-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+2000-206F, U+2122}
+
+:root{
+  --bg:#65d0dc; --ink:#00121e; --surface:#f3fafa; --red:#d01e1c;
+  --yellow:#fbd530; --pink:#d01d7e; --art-bg:#c6f1f6; --logo-red:#9b0000;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  width:1200px;height:630px;overflow:hidden;
+  background:var(--bg);color:var(--ink);
+  font-family:'Golos Text',sans-serif;
+  display:flex;flex-direction:column;
+}
+/* Верхняя лента-«маркиза» */
+.strip{
+  background:var(--ink);color:var(--yellow);
+  font-family:'Unbounded',sans-serif;font-weight:700;font-size:19px;
+  padding:12px 0;text-align:center;white-space:nowrap;letter-spacing:.02em;
+}
+.main{flex:1;display:flex;align-items:center;gap:24px;padding:0 30px 0 56px}
+.text{flex:1}
+.kicker{
+  display:inline-block;background:var(--pink);color:#fff;
+  font-weight:800;font-size:22px;padding:8px 20px;
+  border:4px solid var(--ink);border-radius:12px;
+  transform:rotate(-2deg);box-shadow:6px 6px 0 var(--ink);
+  margin-bottom:30px;
+}
+h1{
+  font-family:'Unbounded',sans-serif;font-weight:900;
+  font-size:88px;line-height:1.08;letter-spacing:-.01em;
+  margin-bottom:26px;
+}
+h1 .mark{background:var(--yellow);padding:0 10px;border-radius:10px}
+.sub{font-size:30px;font-weight:600;max-width:560px;line-height:1.35}
+.sub em{font-style:normal;font-family:'Unbounded',sans-serif;font-weight:900}
+.sub em b{color:var(--logo-red);font-weight:900}
+.note{
+  display:inline-block;margin-top:26px;
+  background:var(--surface);border:3px solid var(--ink);border-radius:999px;
+  padding:8px 22px;font-weight:700;font-size:20px;
+  box-shadow:5px 5px 0 var(--ink);transform:rotate(-1deg);
+}
+/* Иллюстрация справа */
+.art{position:relative;width:470px;flex:none}
+.art > svg:first-child{width:100%;height:auto;filter:drop-shadow(10px 12px 0 rgba(0,18,30,.2))}
+.starburst{position:absolute;top:-4%;right:-2%;width:38%;transform:rotate(7deg)}
+</style>
+</head>
+<body>
+
+<div class="strip">🔥 СКИДКА −146% • НЮХ-ГАРАНТИЯ 30 ДНЕЙ • ОСТАЛОСЬ 2 ШТ (ВСЕГДА) 🔥</div>
+
+<div class="main">
+  <div class="text">
+    <div class="kicker">Первый в мире бутик изделий с выдержкой</div>
+    <h1>ПАХНЕТ<br><span class="mark">УСПЕХОМ</span>.</h1>
+    <p class="sub">Ношеные носки и трусики благородного происхождения — бутик <em>ВТОРОЕ&nbsp;<b>ДЫХАНИЕ</b>™</em></p>
+    <div class="note">⚠️ Это шутка: ничего не продаётся</div>
+  </div>
+
+  <div class="art">
+    <!-- Носок-чемпион (копия героя с сайта) -->
+    <svg viewBox="0 0 400 400" role="img" aria-label="Гордый ношеный носок с медалью">
+      <circle cx="200" cy="210" r="165" style="fill:var(--art-bg)" stroke="#00121e" stroke-width="6"/>
+      <g stroke="#00121e" stroke-width="7" stroke-linecap="round" fill="none" opacity=".55">
+        <path d="M150 95 q-12 -20 0 -38 q12 -18 0 -36"/>
+        <path d="M200 85 q-12 -20 0 -38 q12 -18 0 -36"/>
+        <path d="M250 95 q-12 -20 0 -38 q12 -18 0 -36"/>
+      </g>
+      <path d="M150 120 h100 v120 q0 20 18 30 l40 24 q30 18 12 48 q-18 28 -52 12 l-80 -44 q-38 -20 -38 -62 z"
+            style="fill:var(--surface)" stroke="#00121e" stroke-width="8" stroke-linejoin="round"/>
+      <rect x="142" y="108" width="116" height="34" rx="10" style="fill:var(--pink)" stroke="#00121e" stroke-width="8"/>
+      <path d="M150 165 h100 M150 190 h100" stroke="#d01e1c" stroke-width="12"/>
+      <path d="M250 240 q0 14 12 22 l30 18 q16 10 8 26 q-8 14 -28 6" fill="none" stroke="#d01d7e" stroke-width="12" stroke-linecap="round"/>
+      <g>
+        <path d="M188 240 l-16 44 M212 240 l16 44" stroke="#d01e1c" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="200" cy="300" r="34" style="fill:var(--yellow)" stroke="#00121e" stroke-width="7"/>
+        <text x="200" y="312" text-anchor="middle" font-family="Unbounded, sans-serif" font-weight="900" font-size="30" fill="#00121e">1</text>
+      </g>
+      <g style="fill:var(--yellow)" stroke="#00121e" stroke-width="4">
+        <path d="M95 160 l7 16 16 7 -16 7 -7 16 -7 -16 -16 -7 16 -7 z"/>
+        <path d="M310 140 l6 13 13 6 -13 6 -6 13 -6 -13 -13 -6 13 -6 z"/>
+      </g>
+    </svg>
+    <!-- Звезда-ценник -->
+    <svg class="starburst" viewBox="0 0 160 160" role="img" aria-label="Скидка минус 146 процентов">
+      <path d="M80 4 L94 32 L124 18 L122 50 L154 52 L134 76 L158 96 L128 106 L138 136 L106 130 L98 158 L80 134 L62 158 L54 130 L22 136 L32 106 L2 96 L26 76 L6 52 L38 50 L36 18 L66 32 Z"
+            style="fill:var(--yellow)" stroke="#00121e" stroke-width="5" stroke-linejoin="round"/>
+      <text x="80" y="72" text-anchor="middle" font-family="Unbounded, sans-serif" font-weight="900" font-size="24" fill="#d01e1c">−146%</text>
+      <text x="80" y="97" text-anchor="middle" font-family="Golos Text, sans-serif" font-weight="700" font-size="14" fill="#00121e">честно-нечестно</text>
+    </svg>
+  </div>
+</div>
+
+</body>
+</html>
